@@ -188,12 +188,41 @@ class Api_FacetValueController extends Czechline_RestAbstractController
     	} catch(Exception $e) {
     		return $this->onAuthenticationFailed();
     	}
+    		
+    	
     	
     	// authorization
     	/*
     	 if(!$client->getExperiments()->containsKey($id))
     		return $this->onUnauthorized();
     	*/
+    	
+    	// get key data and create new facet
+    	$id = intval($doc->getElementsByTagName('id')->item(0)->nodeValue);
+    	
+    	if($id < 1)
+    		return $this->_forward('post'); // kinda POST request in PUT method
+    	
+    	$facetValue = $this->_em->getRepository('Model_FacetValue')->retrieveById($id);
+    	
+    	if(is_null($facetValue))
+    		return $this->onNotFound();
+    	
+    	//$facetId = intval($doc->getElementsByTagName('facetId')->item(0)->nodeValue);
+    	$externalId = intval($doc->getElementsByTagName('externalId')->item(0)->nodeValue);
+    	$name = $doc->getElementsByTagName('name')->item(0)->nodeValue;
+    	
+    	$facetValue->setName($name);
+    	$facetValue->setExternalId($externalId);
+    	
+    	$this->_em->flush();
+    	
+    	$this->getResponse()->setHttpResponseCode(201);
+    	$this->getResponse()->setHeader('Content-type', $this->getRequestedMediaType());
+    	$this->getResponse()->setHeader('Location', WWW_PATH . '/api/facet-valeu/' . $facetValue->getId());
+    	 
+    	// vypiseme vystup se zalozenym experimentem v XML
+    	$this->view->facetValue = $facetValue;
     }
     
     public function deleteAction()

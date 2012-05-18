@@ -38,6 +38,14 @@ class Api_FacetPositionController extends Czechline_RestAbstractController
     
     public function getAction()
     {
+    	
+    	// authentication
+    	try {
+    		$client = $this->getAuthenticatedClient();
+    	} catch(Exception $e) {
+    		return $this->onAuthenticationFailed();
+    	}
+    	
     	$experimentId = intval($this->getRequest()->getParam('experimentId'));
     	
     	// TODO: validovat, ze jde o UUIDv4
@@ -110,6 +118,7 @@ class Api_FacetPositionController extends Czechline_RestAbstractController
     	$this->view->positions = $positions;
     	$this->view->experimentId = $experimentId;
     	$this->view->visitorId = $visitorId;
+    	$this->view->type =  $this->getRequestedMediaType();
     }
     
     public function postAction()

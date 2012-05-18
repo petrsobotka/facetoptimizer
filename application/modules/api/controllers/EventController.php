@@ -46,6 +46,7 @@ class Api_EventController extends Czechline_RestAbstractController
     		return $this->onAuthenticationFailed();
     	}
     	 
+    	 
     	// authorization
     	/*
     	if(!$client->getExperiments()->containsKey($id))
@@ -90,11 +91,13 @@ class Api_EventController extends Czechline_RestAbstractController
     		return $this->onInvalidXml();
     	 
     	// authentication
+    	/*
     	try {
     		$client = $this->getAuthenticatedClient();
     	} catch(Exception $e) {
     		return $this->onAuthenticationFailed();
     	}
+    	*/
     	 
     	// authorization
     	/*
@@ -194,7 +197,6 @@ class Api_EventController extends Czechline_RestAbstractController
     	$this->_em->persist($event);
     	
     	// predchozi volby
-    	
     	$formerChoices = array();
     	if($loadedXml->event[0]->formerChoices[0] instanceof SimpleXMLElement)
     	{
@@ -230,8 +232,6 @@ class Api_EventController extends Czechline_RestAbstractController
     	$this->view->event = $event;
     	$this->view->formerChoices = $formerChoices;
     }
-    
-    
     
     public function putAction()
     {

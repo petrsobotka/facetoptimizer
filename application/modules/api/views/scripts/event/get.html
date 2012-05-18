@@ -1,8 +1,8 @@
 {if strcmp($type, 'application/json') == 0}
 {ldelim}
 	"id":  {$event->getId()},
-	"experimentId": {$experiment->getId()},
-	"visitorId": "{$visitor->getId()}",
+	"experimentId": {$event->getExperiment()->getId()},
+	"visitorId": "{$event->getVisitor()->getId()}",
 	"type": "{$event->getEventType()->getToken()}",
 	"timestamp": {$event->getTimestamp()}
 {rdelim}
