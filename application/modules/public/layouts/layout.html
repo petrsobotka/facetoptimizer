@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Facet Optimizer</title>
+    <meta name="robots" content="noindex, nofollow" />
+	<meta name="author" content="Petr Sobotka, www.petrsobotka.cz" />
+    <meta name="description" content="Open source application for faceted navigation optimization." />
+    <meta name="keywords" content="faceted search faceted navigation faceted classification facets faceted filtering" />
+    
+	<link rel="stylesheet" media="screen,projection" type="text/css" href="{$this->baseUrl()}/css/layout.css" />
+    <link rel="shortcut icon" href="{$this->baseUrl()}/favicon.ico" />
+    
+    </head>
+<body>
+
+	<div id="main">
+
+		<div id="header" class="clearfix">
+			<h1 id="logo"><a href="{$this->baseUrl()}/">Facet Optimizer</a></h1>
+			
+			<div id="login-info">
+					<a href="{$this->baseUrl()}/admin">Admin</a>
+			</div><!-- login-info -->
+		</div><!-- header -->
+		
+		<div id="menu">
+			<ul class="clearfix">
+				<li><a href="{$this->baseUrl()}/">Home</a></li>
+				<li><a href="{$this->baseUrl()}/api-specs">REST API</a></li>
+				<li><a href="{$this->baseUrl()}/installation">Installation</a></li>
+				<li><a href="{$this->baseUrl()}/faq">FAQ</a></li>
+			</ul>
+		</div><!-- menu -->
+		
+		{$this->layout()->content}
+		
+		<div id="footer">
+			2012 Petr Sobotka <a href="http://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA</a>
+		</div><!-- footer -->
+	
+	</div><!-- main -->
+</body>
+</html>

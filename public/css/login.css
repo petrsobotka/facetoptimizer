@@ -1,0 +1,38 @@
+
+/* _login-form
+=============================================================================*/
+
+body {
+	background: #fff;
+}
+
+#login {
+	width: 28em;
+	margin: 3em auto 0 auto;
+	text-align: left;
+}
+
+#login fieldset {
+	border: 1px solid #dff1fc;
+	padding: 1em;
+	background: #fff url("../images/lock.gif") no-repeat 86% 28%;
+}
+
+#login label {
+	display: inline-block;
+	line-height: 2em;
+	vertical-align: top;
+	width: 80px;
+}
+
+#login input {
+	margin-top: 0.2em;
+}
+
+
+#login div#padding {
+	width: 80px;
+	display: block;
+	float: left;
+	border: 1px solid #fff;
+}

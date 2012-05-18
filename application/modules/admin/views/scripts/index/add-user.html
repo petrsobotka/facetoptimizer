@@ -1,0 +1,44 @@
+<h2>Add New User</h2>
+
+
+
+<div id="content">
+
+{if !empty($message)}
+	<p class="standard-alert box">{$message}</p>
+{/if}
+
+{if !empty($success)}
+	<p class="standard-success box">{$success}</p>
+{/if}
+
+<form action="" method="post">
+
+
+
+	<label for="name">Name:</label>
+	<br />
+	<input type="text" name="name" id="name" size="40" />
+	<br />
+
+	<label for="email">E-mail:</label>
+	<br />
+	<input type="text" name="email" id="email" size="40" />
+	<br />
+
+	<label for="pass">Password:</label>
+	<br />
+	<input type="password" name="pass" id="pass" size="40" />
+	<br />
+
+	<label for="passagain">Password again:</label>
+	<br />
+	<input type="password" name="passagain" id="passagain" size="40" />
+	<br />
+	<br />
+	
+	<input type="submit" value="Create New User" /> <a href="{$this->baseUrl()}/admin/">cancel</a>
+
+</form>
+
+</div><!-- content -->

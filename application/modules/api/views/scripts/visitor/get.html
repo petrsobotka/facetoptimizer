@@ -1,0 +1,17 @@
+{if strcmp($type, 'application/json') == 0}
+{ldelim}
+	"id":  {$facetValue->getId()},
+	"ipv4": "{$visitor->getIpv4()}",
+	"userAgent": "{$visitor->getUserAgent()}"
+{rdelim}
+{else}
+<?xml version="1.0" encoding="utf-8"?>
+<facetOptimizer>
+	<facetValue>
+		<id>{$visitor->getId()}</id>
+		<ipv4>{$visitor->getIpv4()}</ipv4>
+		<userAgent>{$visitor->getUserAgent()}</userAgent>
+	</facetValue>
+</facetOptimizer>
+{/if}
+

@@ -1,0 +1,39 @@
+<h2>REST API Specification</h2>
+		
+<div id="content">
+
+	<h3>API URL</h3>
+	
+	<p>API is available at <a href="{$this->baseUrl()}/api">{$this->baseUrl()}/api</a> or corresponding URL in your custom installation.</p>
+
+	<h3>Resources</h3>
+	
+	The REST API provides the following resources:
+	
+	<ul>
+		<li>event</li>
+		<li>experiment</li>
+		<li>facet</li>
+		<li>facet-Value</li>
+		<li>facet-position</li>
+		<li>visitor</li>
+	</ul>
+
+	<h3>Authentication</h3>
+	
+	<p>Every request to APi must contain parameters <em>apiKey</em> and <em>signature</em>. ApiKey is the key you can generate in experiments settings page. 
+	Signature is created as </p>
+	
+	<pre>hash_hmac('sha256', request, shared-secret);</pre>
+	
+	
+	<h3>Media types</h3>
+	
+	<p>All resources can be accessed in <em>application/xml</em> and <em>application/json</em>. Default is <em>application/xml</em>, if you want to retrieve JSON, 
+	please specify corresponding <em>Accept</em> HTTP header.</p>
+		
+	<h3>Examples</h3>
+	
+	<pre>curl {$this->baseUrl()}/api/event/5265?apiKey=abcd&signature=45d6yg7e8</pre>
+
+</div><!-- content -->

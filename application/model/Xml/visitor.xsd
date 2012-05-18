@@ -1,0 +1,24 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+<xs:simpleType name="non-emptyString">
+  <xs:restriction base="xs:string">
+    <xs:minLength value="1"/>
+  </xs:restriction>
+</xs:simpleType>
+
+  <xs:element name="facetOptimizer">
+    <xs:complexType>
+        <xs:sequence>
+            <xs:element name="visitor">
+                <xs:complexType>
+                    <xs:all>
+                        <xs:element name="id" type="non-emptyString" minOccurs="0" maxOccurs="1" />
+                        <xs:element name="ipv4" type="non-emptyString"/>
+                        <xs:element name="userAgent" type="non-emptyString"/>
+                    </xs:all>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

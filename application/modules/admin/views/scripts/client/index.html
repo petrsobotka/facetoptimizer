@@ -1,0 +1,17 @@
+<h2>Keys for experiment <em>{$experiment->getName()}</em></h2>
+
+<a href="{$this->baseUrl()}/admin/client/new?experimentId={$experiment->getId()}" class="button">New Api Key</a>
+
+<div id="content">
+
+<h3>Api Keys</h3>
+
+{foreach $experiment->getClients() as $client}
+	<p><strong>{$client->getName()}</strong><br />
+	   Key: {$client->getId()}<br />
+	   Shared Secret: {$client->getSecret()}<br />
+	   <a href="{$this->baseUrl()}/admin/client/delete?id={$client->getId()}&experimentId={$experiment->getId()}" onclick="return confirm('Are you sure you want to delete this API Key?')">delete</a>
+	  </p>
+{/foreach}
+
+</div><!-- content -->

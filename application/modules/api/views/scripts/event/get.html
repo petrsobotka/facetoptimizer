@@ -1,0 +1,33 @@
+{if strcmp($type, 'application/json') == 0}
+{ldelim}
+	"id":  {$event->getId()},
+	"experimentId": {$experiment->getId()},
+	"visitorId": "{$visitor->getId()}",
+	"type": "{$event->getEventType()->getToken()}",
+	"timestamp": {$event->getTimestamp()}
+{rdelim}
+{else}
+<?xml version="1.0" encoding="utf-8"?>
+<facetOptimizer>
+	<event>
+		<id>{$event->getId()}</id>
+		<experimentId>{$event->getExperiment()->getId()}</experimentId>
+		<visitorId>{$event->getVisitor()->getId()}</visitorId>
+		<type>{$event->getEventType()->getToken()}</type>
+		<timestamp>{$event->getTimestamp()}</timestamp>
+		{if !is_null($event->getFacet())}
+			<facetExternalId>{$event->getFacet()->getExternalId()}</facetExternalId>
+			<facetValueExternalId>{$event->getFacetValue()->getExternalId()}</facetValueExternalId>
+		{/if}
+		{if $event->getFormerChoices()->count() > 0}
+			<formerChoices>
+			{foreach $event->getFormerChoices() as $choice}
+				<facetExternalId>{$choice->getFacet()->getExternalId()}</facetExternalId>
+				<facetValueExternalId>{$choice->getFacetValue()->getExternalId()}</facetValueExternalId>
+			{/foreach}
+			</formerChoices>
+		{/if}
+	</event>
+</facetOptimizer>
+{/if}
+

@@ -1,0 +1,21 @@
+{if strcmp($type, 'application/json') == 0}
+{ldelim}
+	"id":  {$facet->getId()},
+	"experimentId": {$facet->getExperiment()->getId()},
+	"externalId": {$facet->getExternalId()},
+	"name": "{$facet->getName()}",
+	"static": {intval($facet->isStatic())}
+{rdelim}
+{else}
+<?xml version="1.0" encoding="utf-8"?>
+<facetOptimizer>
+	<facet>
+		<id>{$facet->getId()}</id>
+		<experimentId>{$facet->getExperiment()->getId()}</experimentId>
+		<externalId>{$facet->getExternalId()}</externalId>
+		<name>{$facet->getName()}</name>
+		<static>{intval($facet->isStatic())}</static>
+	</facet>
+</facetOptimizer>
+{/if}
+

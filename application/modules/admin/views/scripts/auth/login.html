@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="cs" lang="cs">
+<head>
+	<title>Admin</title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta http-equiv="Content-Language" content="cs" />
+	<link rel="stylesheet" media="screen,projection" type="text/css" href="{$this->baseUrl()}/css/layout.css" />
+	<link rel="stylesheet" media="screen,projection" type="text/css" href="{$this->baseUrl()}/css/login.css" />
+	<link rel="shortcut icon" href="{$this->baseUrl()}/favicon.ico" />
+</head>
+<body>
+	<div id="login">
+		{if isset($message)}
+			<p class="box standard-alert">{$message}</p>
+		{/if}
+		<form action="{$this->baseUrl()}/admin/auth/login" method="post">
+			<fieldset>
+				<label for="username">Email:</label>
+				<input type="text" id="username" name="username" />
+				<br />
+				<label for="pass">Password:</label>
+				<input type="password" id="pass" name="pass" />
+				<br />
+				
+				<div id="padding"></div>
+				<input type="submit" value="Sign in" />
+			</fieldset>
+		</form>
+	</div><!-- login -->
+</body>
+</html>
+

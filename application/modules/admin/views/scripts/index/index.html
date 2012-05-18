@@ -1,0 +1,29 @@
+<h2>Experiments</h2>
+
+<a href="{$this->baseUrl()}/admin/experiment/new" id="new-experiment" class="button">New Experiment</a>
+
+
+<div id="content">
+
+{foreach $experiments as $row}
+
+	{assign var=experiment value=$row[0]}
+	<a href="{$this->baseUrl()}/admin/experiment?id={$experiment->getId()}" class="experiment-box clearfix">
+		
+		<div class="experiment-overview">
+			<span>{$experiment->getName()}</span>
+			
+			<div class="events-progressbar" style="background-position: -{200-round($row['eventCount']/$maxEvents*100*2)}px 0;">	
+			</div>
+			<span>{$row['eventCount']} events</span>
+		</div><!-- experiment-overview -->
+		
+		<div class="facet-count">
+		{$experiment->getFacets()->count()}
+		<span>facets</span>
+		</div><!-- facet-count -->
+		
+	</a><!-- experiment-box -->
+{/foreach}
+
+</div><!-- content -->

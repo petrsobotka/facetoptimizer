@@ -1,0 +1,19 @@
+{if strcmp($type, 'application/json') == 0}
+{ldelim}
+	"id":  {$facetValue->getId()},
+	"facetId": {$facetValue->getFacet()->getId()},
+	"externalId": {$facetValue->getExternalId()},
+	"name": "{$facetValue->getName()}"
+{rdelim}
+{else}
+<?xml version="1.0" encoding="utf-8"?>
+<facetOptimizer>
+	<facetValue>
+		<id>{$facetValue->getId()}</id>
+		<facetId>{$facetValue->getFacet()->getId()}</facetId>
+		<externalId>{$facetValue->getExternalId()}</externalId>
+		<name>{htmlspecialchars($facetValue->getName())}</name>
+	</facetValue>
+</facetOptimizer>
+{/if}
+

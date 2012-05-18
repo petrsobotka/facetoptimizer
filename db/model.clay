@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clay-model clay-version="2.0.1">
+<database-model author="" begin-script="" end-script="" id="5865a437:136732f13c4:-8000" name="model" sql-dialect-id="jp.azzurri.clay.dialect.MySQL_5_0_Dialect" version="1.0">
+<schema-list>
+<schema id="5865a437:136732f13c4:-7fff" name="FacetOptimizer">
+<table-list>
+<table id="5865a437:136732f13c4:-7ffe" name="user">
+<column-list>
+<column auto-increment="true" column-size="0" decimal-digits="0" default-value="" id="5865a437:136732f13c4:-7ffa" mandatory="true" name="id">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+<column auto-increment="false" column-size="255" decimal-digits="0" default-value="" id="5865a437:136732f13c4:-7ff9" mandatory="true" name="name">
+<data-type name="VARCHAR" selected-variant-pattern="VARCHAR(%n)"/>
+</column>
+<column auto-increment="false" column-size="255" decimal-digits="0" default-value="" id="5865a437:136732f13c4:-7ff8" mandatory="true" name="email">
+<data-type name="VARCHAR" selected-variant-pattern="VARCHAR(%n)"/>
+</column>
+<column auto-increment="false" column-size="128" decimal-digits="0" default-value="" id="5865a437:136732f13c4:-7ff7" mandatory="true" name="password">
+<data-type name="CHAR" selected-variant-pattern="CHAR(%n)"/>
+</column>
+<column auto-increment="false" column-size="16" decimal-digits="0" default-value="" id="5865a437:136732f13c4:-7ff6" mandatory="true" name="salt">
+<data-type name="CHAR" selected-variant-pattern="CHAR(%n)"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="0" id="4ff2b854:13740ea9029:-7e85" mandatory="true" name="superuser">
+<data-type name="BOOLEAN" selected-variant-pattern="BOOLEAN"/>
+</column>
+</column-list>
+<primary-key id="5865a437:136732f13c4:-7ffd" name="PK_USER">
+<primary-key-column name="id"/>
+</primary-key>
+<unique-key-list>
+<unique-key id="4994b56f:137211a6532:-7fb8" name="UQ_user_1">
+<unique-key-column name="email"/>
+</unique-key>
+</unique-key-list>
+</table>
+<table id="4b18d04a:136c52675d6:-7ff1" name="experiment">
+<column-list>
+<column auto-increment="true" column-size="0" decimal-digits="0" default-value="" id="4b18d04a:136c52675d6:-7fed" mandatory="true" name="id">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+<column auto-increment="false" column-size="255" decimal-digits="0" default-value="" id="a51ac68:136cb0b6466:-7fdf" mandatory="true" name="name">
+<data-type name="VARCHAR" selected-variant-pattern="VARCHAR(%n)"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="4b18d04a:136c52675d6:-7fea" mandatory="false" name="description">
+<data-type name="TEXT" selected-variant-pattern="TEXT"/>
+</column>
+<column auto-increment="false" column-size="255" decimal-digits="0" default-value="" id="4b18d04a:136c52675d6:-7fe9" mandatory="true" name="url">
+<data-type name="VARCHAR" selected-variant-pattern="VARCHAR(%n)"/>
+</column>
+</column-list>
+<primary-key id="4b18d04a:136c52675d6:-7ff0" name="PK_EXPERIMENT">
+<primary-key-column name="id"/>
+</primary-key>
+</table>
+<table id="4b18d04a:136c52675d6:-7fe6" name="facet">
+<column-list>
+<column auto-increment="true" column-size="0" decimal-digits="0" default-value="" id="4b18d04a:136c52675d6:-7fe0" mandatory="true" name="id">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="4b18d04a:136c52675d6:-7fda" mandatory="true" name="experiment_id">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="4b18d04a:136c52675d6:-7fdf" mandatory="true" name="external_id">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+<column auto-increment="false" column-size="255" decimal-digits="0" default-value="" id="4b18d04a:136c52675d6:-7fde" mandatory="true" name="name">
+<data-type name="VARCHAR" selected-variant-pattern="VARCHAR(%n)"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="0" id="4b18d04a:136c52675d6:-7fdd" mandatory="true" name="static">
+<data-type name="BOOL" selected-variant-pattern="BOOL"/>
+</column>
+</column-list>
+<primary-key id="4b18d04a:136c52675d6:-7fe5" name="PK_FACET">
+<primary-key-column name="id"/>
+</primary-key>
+<foreign-key-list>
+<foreign-key id="4b18d04a:136c52675d6:-7fc6" name="FK_facet_1" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_EXPERIMENT" referenced-table="experiment" referenced-table-schema="FacetOptimizer" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="experiment_id" referenced-key-column-name="id"/>
+</foreign-key>
+</foreign-key-list>
+</table>
+<table id="4b18d04a:136c52675d6:-7faf" name="facet_value">
+<column-list>
+<column auto-increment="true" column-size="0" decimal-digits="0" default-value="" id="4b18d04a:136c52675d6:-7fab" mandatory="true" name="id">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="4b18d04a:136c52675d6:-7faa" mandatory="true" name="facet_id">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="4b18d04a:136c52675d6:-7fa7" mandatory="true" name="external_id">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+<column auto-increment="false" column-size="255" decimal-digits="0" default-value="" id="4b18d04a:136c52675d6:-7f82" mandatory="true" name="name">
+<data-type name="VARCHAR" selected-variant-pattern="VARCHAR(%n)"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="4b18d04a:136c52675d6:-7f16" mandatory="true" name="lft">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="4b18d04a:136c52675d6:-7f15" mandatory="true" name="rgt">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="4b18d04a:136c52675d6:-7f14" mandatory="true" name="root">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+</column-list>
+<primary-key id="4b18d04a:136c52675d6:-7fae" name="PK_FACET_VALUE">
+<primary-key-column name="id"/>
+</primary-key>
+<foreign-key-list>
+<foreign-key id="4b18d04a:136c52675d6:-7f97" name="FK_facet_value_1" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_FACET" referenced-table="facet" referenced-table-schema="FacetOptimizer" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="facet_id" referenced-key-column-name="id"/>
+</foreign-key>
+</foreign-key-list>
+</table>
+<table id="4b18d04a:136c52675d6:-7f13" name="visitor">
+<column-list>
+<column auto-increment="false" column-size="36" decimal-digits="0" default-value="" id="4b18d04a:136c52675d6:-7c3c" mandatory="true" name="id">
+<data-type name="CHAR" selected-variant-pattern="CHAR(%n) BINARY"/>
+</column>
+<column auto-increment="false" column-size="16" decimal-digits="0" default-value="" id="4b18d04a:136c52675d6:-7f0e" mandatory="false" name="ipv4">
+<data-type name="VARCHAR" selected-variant-pattern="VARCHAR(%n)"/>
+</column>
+<column auto-increment="false" column-size="1024" decimal-digits="0" default-value="" id="4b18d04a:136c52675d6:-7f0d" mandatory="false" name="user_agent">
+<data-type name="VARCHAR" selected-variant-pattern="VARCHAR(%n)"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="4b18d04a:136c52675d6:-7eb8" mandatory="true" name="created">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+</column-list>
+<primary-key id="4b18d04a:136c52675d6:-7f12" name="PK_VISITOR">
+<primary-key-column name="id"/>
+</primary-key>
+<unique-key-list>
+<unique-key id="64ccedae:136d56470c0:-7fe1" name="token">
+<unique-key-column name="id"/>
+</unique-key>
+</unique-key-list>
+</table>
+<table id="4b18d04a:136c52675d6:-7eb5" name="facet_position">
+<column-list>
+<column auto-increment="true" column-size="0" decimal-digits="0" default-value="" id="4b18d04a:136c52675d6:-7eb1" mandatory="true" name="id">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+<column auto-increment="false" column-size="36" decimal-digits="0" default-value="" id="4b18d04a:136c52675d6:-7eaf" mandatory="true" name="visitor_id">
+<data-type name="CHAR" selected-variant-pattern="CHAR(%n) BINARY"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="4b18d04a:136c52675d6:-7eb0" mandatory="true" name="experiment_id">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="4b18d04a:136c52675d6:-7eae" mandatory="true" name="facet_id">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="4b18d04a:136c52675d6:-7eab" mandatory="true" name="position">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+</column-list>
+<primary-key id="4b18d04a:136c52675d6:-7eb4" name="PK_FACET_POSITION">
+<primary-key-column name="id"/>
+</primary-key>
+<unique-key-list>
+<unique-key id="4b18d04a:136c52675d6:-7e15" name="UQ_facet_position_1">
+<unique-key-column name="visitor_id"/>
+<unique-key-column name="experiment_id"/>
+<unique-key-column name="facet_id"/>
+</unique-key>
+</unique-key-list>
+<foreign-key-list>
+<foreign-key id="4b18d04a:136c52675d6:-7e99" name="FK_facet_position_1" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_EXPERIMENT" referenced-table="experiment" referenced-table-schema="FacetOptimizer" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="experiment_id" referenced-key-column-name="id"/>
+</foreign-key>
+<foreign-key id="4b18d04a:136c52675d6:-7e3c" name="FK_facet_position_3" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_FACET" referenced-table="facet" referenced-table-schema="FacetOptimizer" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="facet_id" referenced-key-column-name="id"/>
+</foreign-key>
+<foreign-key id="4b18d04a:136c52675d6:-7e63" name="FK_facet_position_2" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_VISITOR" referenced-table="visitor" referenced-table-schema="FacetOptimizer" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="visitor_id" referenced-key-column-name="id"/>
+</foreign-key>
+</foreign-key-list>
+</table>
+<table id="4b18d04a:136c52675d6:-7e14" name="event">
+<column-list>
+<column auto-increment="true" column-size="0" decimal-digits="0" default-value="" id="4b18d04a:136c52675d6:-7e10" mandatory="true" name="id">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="4b18d04a:136c52675d6:-7e0d" mandatory="true" name="event_type_id">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="4b18d04a:136c52675d6:-7e0f" mandatory="true" name="experiment_id">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+<column auto-increment="false" column-size="36" decimal-digits="0" default-value="" id="4b18d04a:136c52675d6:-7e0e" mandatory="true" name="visitor_id">
+<data-type name="CHAR" selected-variant-pattern="CHAR(%n) BINARY"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="64ccedae:136d56470c0:-7fa5" mandatory="false" name="facet_id">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="4b18d04a:136c52675d6:-7e0c" mandatory="false" name="facet_value_id">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="4b18d04a:136c52675d6:-7e0b" mandatory="true" name="timestamp">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="4b18d04a:136c52675d6:-7e0a" mandatory="false" name="result_set_size">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+</column-list>
+<primary-key id="4b18d04a:136c52675d6:-7e13" name="PK_EVENT">
+<primary-key-column name="id"/>
+</primary-key>
+<foreign-key-list>
+<foreign-key id="4b18d04a:136c52675d6:-7df2" name="FK_event_1" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_EXPERIMENT" referenced-table="experiment" referenced-table-schema="FacetOptimizer" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="experiment_id" referenced-key-column-name="id"/>
+</foreign-key>
+<foreign-key id="4b18d04a:136c52675d6:-7d45" name="FK_event_3" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_FACET_VALUE" referenced-table="facet_value" referenced-table-schema="FacetOptimizer" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="facet_value_id" referenced-key-column-name="id"/>
+</foreign-key>
+<foreign-key id="4b18d04a:136c52675d6:-7d0f" name="FK_event_4" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_EVENT_TYPE" referenced-table="event_type" referenced-table-schema="FacetOptimizer" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="event_type_id" referenced-key-column-name="id"/>
+</foreign-key>
+<foreign-key id="4b18d04a:136c52675d6:-7da1" name="FK_event_2" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_VISITOR" referenced-table="visitor" referenced-table-schema="FacetOptimizer" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="visitor_id" referenced-key-column-name="id"/>
+</foreign-key>
+<foreign-key id="64ccedae:136d56470c0:-7f8e" name="FK_event_5" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_FACET" referenced-table="facet" referenced-table-schema="FacetOptimizer" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="facet_id" referenced-key-column-name="id"/>
+</foreign-key>
+</foreign-key-list>
+</table>
+<table id="4b18d04a:136c52675d6:-7d2e" name="event_type">
+<column-list>
+<column auto-increment="true" column-size="0" decimal-digits="0" default-value="" id="4b18d04a:136c52675d6:-7d2a" mandatory="true" name="id">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+<column auto-increment="false" column-size="255" decimal-digits="0" default-value="" id="4b18d04a:136c52675d6:-7d29" mandatory="true" name="name">
+<data-type name="VARCHAR" selected-variant-pattern="VARCHAR(%n)"/>
+</column>
+<column auto-increment="false" column-size="32" decimal-digits="0" default-value="" id="4d469e43:136e450c803:-7f40" mandatory="true" name="token">
+<data-type name="VARCHAR" selected-variant-pattern="VARCHAR(%n)"/>
+</column>
+</column-list>
+<primary-key id="4b18d04a:136c52675d6:-7d2d" name="PK_EVENT_TYPE">
+<primary-key-column name="id"/>
+</primary-key>
+</table>
+<table id="4b18d04a:136c52675d6:-7cfd" name="former_choice">
+<column-list>
+<column auto-increment="true" column-size="0" decimal-digits="0" default-value="" id="4b18d04a:136c52675d6:-7cf7" mandatory="true" name="id">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="4b18d04a:136c52675d6:-7cf6" mandatory="true" name="event_id">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="64ccedae:136d56470c0:-7f75" mandatory="true" name="facet_id">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="4b18d04a:136c52675d6:-7cf5" mandatory="true" name="facet_value_id">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+</column-list>
+<primary-key id="4b18d04a:136c52675d6:-7cfc" name="PK_FORMER_CHOICE">
+<primary-key-column name="id"/>
+</primary-key>
+<foreign-key-list>
+<foreign-key id="4b18d04a:136c52675d6:-7cc1" name="FK_former_choice_1" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_EVENT" referenced-table="event" referenced-table-schema="FacetOptimizer" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="event_id" referenced-key-column-name="id"/>
+</foreign-key>
+<foreign-key id="4b18d04a:136c52675d6:-7c82" name="FK_former_choice_2" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_FACET_VALUE" referenced-table="facet_value" referenced-table-schema="FacetOptimizer" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="facet_value_id" referenced-key-column-name="id"/>
+</foreign-key>
+<foreign-key id="64ccedae:136d56470c0:-7f5c" name="FK_former_choice_3" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_FACET" referenced-table="facet" referenced-table-schema="FacetOptimizer" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="facet_id" referenced-key-column-name="id"/>
+</foreign-key>
+</foreign-key-list>
+</table>
+<table id="4ff2b854:13740ea9029:-7fdb" name="client">
+<column-list>
+<column auto-increment="false" column-size="32" decimal-digits="0" default-value="" id="4ff2b854:13740ea9029:-7fd5" mandatory="true" name="id">
+<data-type name="CHAR" selected-variant-pattern="CHAR(%n) BINARY"/>
+</column>
+<column auto-increment="false" column-size="255" decimal-digits="0" default-value="" id="4ff2b854:13740ea9029:-7fd2" mandatory="true" name="name">
+<data-type name="VARCHAR" selected-variant-pattern="VARCHAR(%n)"/>
+</column>
+<column auto-increment="false" column-size="32" decimal-digits="0" default-value="" id="4ff2b854:13740ea9029:-7fd1" mandatory="true" name="secret">
+<data-type name="CHAR" selected-variant-pattern="CHAR(%n) BINARY"/>
+</column>
+</column-list>
+<primary-key id="4ff2b854:13740ea9029:-7fda" name="PK_CLIENT">
+<primary-key-column name="id"/>
+</primary-key>
+</table>
+<table id="4ff2b854:13740ea9029:-7fd0" name="client_binding">
+<column-list>
+<column auto-increment="false" column-size="32" decimal-digits="0" default-value="" id="4ff2b854:13740ea9029:-7fca" mandatory="true" name="client_id">
+<data-type name="CHAR" selected-variant-pattern="CHAR(%n) BINARY"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="4ff2b854:13740ea9029:-7fc9" mandatory="true" name="experiment_id">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+</column-list>
+<primary-key id="4ff2b854:13740ea9029:-7fcf" name="PK_CLIENT_BINDING">
+<primary-key-column name="client_id"/>
+<primary-key-column name="experiment_id"/>
+</primary-key>
+<foreign-key-list>
+<foreign-key id="4ff2b854:13740ea9029:-7fb6" name="FK_client_binding_1" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_CLIENT" referenced-table="client" referenced-table-schema="FacetOptimizer" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="client_id" referenced-key-column-name="id"/>
+</foreign-key>
+<foreign-key id="4ff2b854:13740ea9029:-7f70" name="FK_client_binding_2" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_EXPERIMENT" referenced-table="experiment" referenced-table-schema="FacetOptimizer" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="experiment_id" referenced-key-column-name="id"/>
+</foreign-key>
+</foreign-key-list>
+</table>
+<table id="4ff2b854:13740ea9029:-7f3a" name="user_binding">
+<column-list>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="4ff2b854:13740ea9029:-7f31" mandatory="true" name="user_id">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="4ff2b854:13740ea9029:-7f30" mandatory="true" name="experiment_id">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+<column auto-increment="false" column-size="32" decimal-digits="0" default-value="" id="4ff2b854:13740ea9029:-7e88" mandatory="true" name="role">
+<data-type name="VARCHAR" selected-variant-pattern="VARCHAR(%n)"/>
+</column>
+</column-list>
+<primary-key id="4ff2b854:13740ea9029:-7f39" name="PK_USER_BINDING">
+<primary-key-column name="user_id"/>
+<primary-key-column name="experiment_id"/>
+</primary-key>
+<foreign-key-list>
+<foreign-key id="4ff2b854:13740ea9029:-7ece" name="FK_user_binding_2" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_EXPERIMENT" referenced-table="experiment" referenced-table-schema="FacetOptimizer" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="experiment_id" referenced-key-column-name="id"/>
+</foreign-key>
+<foreign-key id="4ff2b854:13740ea9029:-7efa" name="FK_user_binding_1" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_USER" referenced-table="user" referenced-table-schema="FacetOptimizer" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="user_id" referenced-key-column-name="id"/>
+</foreign-key>
+</foreign-key-list>
+</table>
+</table-list>
+</schema>
+</schema-list>
+</database-model>
+<diagram>
+<table-figure height="111" refid="5865a437:136732f13c4:-7ffe" width="148" x="391" y="38"/>
+<table-figure height="86" refid="4b18d04a:136c52675d6:-7ff1" width="159" x="1100" y="42"/>
+<table-figure refid="4b18d04a:136c52675d6:-7fe6" x="1467" y="69"/>
+<table-figure refid="4b18d04a:136c52675d6:-7faf" x="1906" y="54"/>
+<table-figure height="94" refid="4b18d04a:136c52675d6:-7f13" width="226" x="1336" y="323"/>
+<table-figure refid="4b18d04a:136c52675d6:-7eb5" x="1039" y="261"/>
+<table-figure refid="4b18d04a:136c52675d6:-7e14" x="1651" y="265"/>
+<table-figure refid="4b18d04a:136c52675d6:-7d2e" x="1971" y="357"/>
+<table-figure refid="4b18d04a:136c52675d6:-7cfd" x="2058" y="237"/>
+<table-figure refid="4ff2b854:13740ea9029:-7fdb" x="445" y="254"/>
+<table-figure height="74" refid="4ff2b854:13740ea9029:-7fd0" width="202" x="665" y="291"/>
+<table-figure height="71" refid="4ff2b854:13740ea9029:-7f3a" width="176" x="684" y="63"/>
+</diagram>
+</clay-model>

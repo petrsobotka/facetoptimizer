@@ -1,0 +1,2 @@
+# v tomto adresari ihnorujeme vsechny vygenerovane kompilovane sablony, tedy soubory s priponou php
+*.log

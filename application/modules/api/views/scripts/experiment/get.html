@@ -1,0 +1,18 @@
+{if strcmp($type, 'application/json') == 0}
+{ldelim}
+	"id":  {$experiment->getId()},
+	"name": "{$experiment->getName()}",
+	"url": "{$experiment->getUrl()}",
+	"description": "{$experiment->getDescription()}"
+{rdelim}
+{else}
+<?xml version="1.0" encoding="utf-8"?>
+<facetOptimizer>
+	<experiment>
+		<id>{$experiment->getId()}</id>
+		<name>{$experiment->getName()}</name>
+		<url>{$experiment->getUrl()}</url>
+		<description>{$experiment->getDescription()}</description>
+	</experiment>
+</facetOptimizer>
+{/if}

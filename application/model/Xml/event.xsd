@@ -1,0 +1,46 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+<xs:simpleType name="non-emptyString">
+  <xs:restriction base="xs:string">
+    <xs:minLength value="1"/>
+  </xs:restriction>
+</xs:simpleType>
+
+  <xs:element name="facetOptimizer">
+    <xs:complexType>
+        <xs:sequence>
+            <xs:element name="event">
+                <xs:complexType>
+                    <xs:all>
+                        <xs:element name="id" type="xs:integer" minOccurs="0" maxOccurs="1" />
+                        <xs:element name="experimentId" type="xs:integer" />
+                        <xs:element name="visitorId" type="non-emptyString" />
+                        <xs:element name="type" type="non-emptyString" />
+                        
+                        <xs:element name="facetExternalId" type="xs:integer" minOccurs="0" maxOccurs="1" />
+                        <xs:element name="facetValueExternalId" type="xs:integer" minOccurs="0" maxOccurs="1" />
+                        
+                        <xs:element name="timestamp" type="xs:integer" />
+                        <xs:element name="resultSetSize" type="xs:integer" minOccurs="0" maxOccurs="1" />
+                                        
+                        <xs:element name="formerChoices" minOccurs="0" maxOccurs="1">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="formerChoice" minOccurs="1" maxOccurs="unbounded">
+                                        <xs:complexType>
+                                            <xs:all>
+                                                <xs:element name="facetExternalId" type="xs:integer" />
+                                                <xs:element name="facetValueExternalId" type="xs:integer" />
+                                            </xs:all>
+                                        </xs:complexType>
+                                    </xs:element>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:all>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

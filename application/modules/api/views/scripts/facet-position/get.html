@@ -1,0 +1,34 @@
+{if strcmp($type, 'application/json') == 0}
+{ldelim}
+	"experimentId":  {$experimentId},
+	"visitorId": "{$visitorId}",
+	"facets": 
+	
+	[
+			{foreach $positions as $position}
+				{ldelim} 
+				  "externalId": {$position->getFacet()->getExternalId()},
+				  "position": {$position->getPosition()},
+				  "name":  "{$position->getFacet()->getName()}"
+				{rdelim}
+				
+				{if !$position@last},{/if}
+			{/foreach}
+	]
+	
+{rdelim}
+{else}
+<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
+<facetOptimizer>
+	<facetPositions>
+		<experimentId>{$experimentId}</experimentId>
+		<visitorId>{$visitorId}</visitorId>
+		<facets>
+			{foreach $positions as $position}
+				<facet externalId="{$position->getFacet()->getExternalId()}" position="{$position->getPosition()}" name="{$position->getFacet()->getName()}"/>
+			{/foreach}
+		</facets>
+	</facetPositions>
+</facetOptimizer>
+{/if}

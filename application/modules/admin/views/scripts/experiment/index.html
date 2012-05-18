@@ -1,0 +1,124 @@
+<h2>Experiment <em>{$experiment->getName()}</em></h2>
+
+<a href="{$this->baseUrl()}/admin/experiment/delete?id={$experiment->getId()}" class="button" onclick="return confirm('Are you sure you want to delete this experiment?')">Delete</a>
+
+
+<div id="content">
+
+<h3>Events</h3>
+
+<p>
+<strong>Type:</strong> <a href="{$this->baseUrl()}/admin/experiment?id={$experiment->getId()}&type=1">click on facet</a> |
+	<a href="{$this->baseUrl()}/admin/experiment?id={$experiment->getId()}&type=2">facet value cancel</a> |
+	<a href="{$this->baseUrl()}/admin/experiment?id={$experiment->getId()}&type=4">help click</a>
+</p>
+
+
+<p>
+Total events of selected type: {$totalEventsCount}
+</p>
+
+{* custom smarty funkce pro zajisteni rekurze *}
+{function name=tree level=0}
+	{foreach $children as $child}
+		<li class="facet-value clearfix">
+		
+			<div class="facet-value-name">{$child->getNode()->getName()}</div>
+			
+			<div class="facet-value-progressbar" style="background-position: -{200-round($valueCounts[$child->getNode()->getId()]/$totalCount*100*2)}px 0;"><span>{round($valueCounts[$child->getNode()->getId()]/$totalCount*100)} %</span></div>
+			
+			<div class="facet-value-counter">{$valueCounts[$child->getNode()->getId()]}</div>
+		
+			{if $child->hasChildren()}
+				<ul>
+					{tree children=$child->getChildren() level=$level+1 totalCount=$valueCounts[$child->getNode()->getId()]}
+				</ul>
+			{/if}
+		</li><!-- facet-value -->
+	{/foreach}
+{/function}
+
+{function name=getPercentage}
+	{round($part/$base*100)} %
+{/function}
+
+{*
+<ul>
+{foreach $facets as $row}
+	
+	{assign var=facet value=$row[0]}
+	{assign var=count value=$row['eventCount']}
+
+	<li>{$facet->getName()} ({$count}) [{getPercentage base=$totalEventsCount part=$count}]
+		{if array_key_exists($facet->getId(), $facetValueTrees)}
+			<ul>
+				{tree children=$facetValueTrees[$facet->getId()]->getChildren() totalCount=$count}
+			</ul>
+		{/if}
+		</li>
+{/foreach}
+</ul>
+*}
+
+<div id="facets">
+{foreach $facets as $row}
+	<div class="facet clearfix">
+		{assign var=facet value=$row[0]}
+		{assign var=count value=$row['eventCount']}
+	
+		<div>
+		<div class="expander" id="expander-{$facet->getId()}" onclick="toggleFacetValues({$facet->getId()});"></div>
+		
+		<div class="facet-name">{$facet->getName()}</div>
+		
+		<div class="facet-progressbar" style="background-position: -{200-round($count/$totalEventsCount*100*2)}px 0;"><span>{round($count/$totalEventsCount*100)} %</span></div>
+		
+		<div class="facet-counter">{$count} events</div>
+		</div>
+	
+		{*{getPercentage base=$totalEventsCount part=$count}*}
+		{if array_key_exists($facet->getId(), $facetValueTrees)}
+		<div class="facet-values" id="facet-{$facet->getId()}-values" style="display: none;">
+			<ul>
+			{tree children=$facetValueTrees[$facet->getId()]->getChildren() totalCount=$count}
+			</ul>
+		</div><!-- facet-values -->
+		{/if}
+	</div><!-- facet -->
+{/foreach}
+</div><!-- facets -->
+
+{*
+<hr />
+<h3>Events</h3>
+
+<table class="data">
+	<tr>
+		<th>time</th>
+		<th>type</th>
+		<th>details</th>
+		<th>results</th>
+		<th>visitor</th>
+		<th></th>
+	</tr>
+	{foreach $experiment->getEvents() as $event}
+	<tr>
+		<td>{$event->getDateTime()->format('Y-m-d H:i:s')}</td>
+		<td>{$event->getEventType()->getName()}</td>
+		<td>{if $event->getEventType()->getId() == Model_EventType::APPLY_FACET_VALUE || $event->getEventType()->getId() == Model_EventType::CANCEL_FACET_VALUE}
+				{$event->getFacet()->getName()}: {$event->getFacetValue()->getName()}
+			{/if}
+		</td>
+		<td>{$event->getResultSetSize()}</td>
+		<td>{$event->getVisitor()->getId()}</td>
+		<td><a href="{$this->baseUrl()}/admin/event?id={$event->getId()}">detail</a></td>
+	</tr>
+	{/foreach}
+</table>
+
+*}
+
+<h3>API Keys</h3>
+<a href="{$this->baseUrl()}/admin/client?experimentId={$experiment->getId()}">Configure API Keys for this Experiment</a>
+
+</div><!-- content -->

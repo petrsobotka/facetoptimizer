@@ -1,0 +1,26 @@
+<h2>Event detail</h2>
+
+<p>
+Experiment: {$event->getExperiment()->getName()} <br />
+Time: {$event->getDateTime()->format('Y-m-d H:i:sP')} <br />
+Type: {$event->getEventType()->getName()} <br />
+Visitor: {$event->getVisitor()->getId()} <br />
+Results: {$event->getResultSetSize()} <br />
+</p>
+
+{if $event->getEventType()->getId() == Model_EventType::APPLY_FACET_VALUE || $event->getEventType()->getId() == Model_EventType::CANCEL_FACET_VALUE}
+<h3>Choice</h3>
+	<ul>
+		<li><strong>{$event->getFacet()->getName()}: {$event->getFacetValue()->getName()}</strong></li>
+	</ul>
+{/if}
+
+{if $event->getFormerChoices()->count() > 0}
+	<h3>Active facet choices</h3>
+
+	<ul>
+		{foreach $event->getFormerChoices() as $formerChoice}
+			<li>{$formerChoice->getFacet()->getName()}: {$formerChoice->getFacetValue()->getName()}</li>
+		{/foreach}
+	</ul>
+{/if}

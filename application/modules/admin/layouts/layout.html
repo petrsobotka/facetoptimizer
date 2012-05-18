@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="utf-8" />
+    <title>Facet Optimizer Admin</title>
+    <meta name="robots" content="noindex, nofollow" />
+	<meta name="author" content="Petr Sobotka, www.petrsobotka.cz" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    
+	<link rel="stylesheet" media="screen,projection" type="text/css" href="{$this->baseUrl()}/css/layout.css" />
+    <link rel="shortcut icon" href="{$this->baseUrl()}/favicon.ico" />
+    
+    <script type="text/javascript" src="{$this->baseUrl()}/js/prototype.js"></script>
+	<script type="text/javascript" src="{$this->baseUrl()}/js/scriptaculous/scriptaculous.js?load=effects"></script>
+	<script type="text/javascript" src="{$this->baseUrl()}/js/admin.js"></script>
+    
+    </head>
+<body>
+
+	<div id="main">
+
+		<div id="header" class="clearfix">
+			<h1 id="logo-admin"><a href="{$this->baseUrl()}/admin">Facet Optimizer Admin</a></h1>
+			
+			<div id="login-info">
+				<a href="{$this->baseUrl()}/admin/index/change-password">{$this->loggedOnUser()->getName()}</a> | <a href="{$this->baseUrl()}/admin/auth/logout">sign out</a>
+			</div><!-- login-info -->
+		</div><!-- header -->
+
+
+	{$this->layout()->content}
+	
+	</div><!-- main -->
+</body>
+</html>
