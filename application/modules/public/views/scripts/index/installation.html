@@ -2,13 +2,61 @@
 		
 <div id="content">
 
+<h3>Requirements</h3>
 
-<p>This section coveres the following topics:</p>
+<p>FacetOptimizer is a PHP application build on top of <a href="http://framework.zend.com/">Zend Framework</a> 
+and <a href="http://www.doctrine-project.org/">Doctrine 2</a>, you will need 
+PHP version 5.3 to run it. </p>
+
+<h3>Database backends</h3>
+
+<p>Because of Doctrine 2, FacetOptimizer can run backed by the following DB engines:</p>
+
 	<ul>
-		<li>DB initialization from DB shema.</li>
-		<li>Creating config file for your configuration.</li>
-		<li>Recommendations for using SSL and APC.</li>
-		<li>How to run Unit Test.</li>
+		<li>MySQL</li>
+		<li>MS SQL Server</li>
+		<li>Oracle</li>
+		<li>SQLite</li>
+		<li>PostgreSQL</li>
 	</ul>
+
+<a name="sql-note"></a>
+<p>There is a little SQL script <code>model.sql</code> to create appropriate database structure, but currently it is available only in MySQL 
+dialect. If you wish to use another DB engine, please use attached <code>model.clay</code>, which is made using DB modeling tool called 
+<a href="http://www.azzurri.jp/en/clay/index.html">Azzurri Clay</a>, and generate suitable SQL script for your favorite engine. 
+	
+
+<h3>Installation</h3>
+
+<ol>
+	<li>Download the <a href="https://github.com/petrsobotka/facetoptimizer">source code</a>.</li>
+	<li>Place it on your web server and make the <code>/public</code> directory a <em>document root</em>.</li>
+	<li>Use <code>/db/model.sql</code> to create database structure.</li>
+	<li>Create a configuration file inspired by <code>/application/config/sample.php</code> and then edit 
+		<code>/application/config/config.php</code> to match your config file by your <em>server admin</em> variable.</li>
+	<li>If you plan to run FacetOptimizer in production:
+	
+		<ul>
+			<li>It is highly recommended to use <a href="http://php.net/manual/en/book.apc.php">APC</a>.
+			After you install and configure APC, don't forget to set the corresponding variable in your config file to let FacetOptimizer know you want to use APC.</li>
+			<li>It is also highly recommended to run it on SSL secured host, especially if your traffic is considered sensitive.</li>
+		</ul>
+	</li>
+</ol>
+
+<h3>Integration</h3>
+
+<p>After successful installation you will have to create a REST client <strong>inside</strong> your web application with faceted navigation.
+This client will connect to FacetOptimizer's API and capture traffic. </p>
+
+<p>Please use any library for REST style communication you like. If your platform is PHP, we recommend <code><a href="http://framework.zend.com/manual/en/zend.rest.client.html">Zend_Rest_Client</a></code>.
+
+<h3>Running unit tests</h3>
+
+<p>Unit tests are written using <a href="https://github.com/sebastianbergmann/phpunit">PHPUnit</a> framework. Because of ZendFramework 1.11, the tests must be run 
+under PHPUnit of version at maximum 3.5.
+The tests are stored in <code>/tests</code> folder, please run them using <code>/tests/phpunit.xml</code> configuraton file.
+
+</p>
 
 </div><!-- content -->

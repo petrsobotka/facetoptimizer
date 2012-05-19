@@ -90,6 +90,11 @@ table.data td.tdr {
 	text-align: right;
 }
 
+table.data td.tdc,
+table.data th.tdc {
+	text-align: center;
+}
+
 #main {
 	width: 60em;
 	margin: 2em auto;

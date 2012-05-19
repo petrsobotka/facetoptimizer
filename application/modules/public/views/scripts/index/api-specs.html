@@ -8,20 +8,75 @@
 
 	<h3>Resources</h3>
 	
-	The REST API provides the following resources:
+	<p>The REST API provides the following resources and methods:</p>
 	
-	<ul>
-		<li>event</li>
-		<li>experiment</li>
-		<li>facet</li>
-		<li>facet-Value</li>
-		<li>facet-position</li>
-		<li>visitor</li>
-	</ul>
+	<table class="data">
+    
+        <tr>
+            <th rowspan="2">Resource</th>
+            <th colspan="4" class="tdc">Method</th>
+        </tr>
+        <tr>
+            <th>GET</th>
+            <th>POST</th>
+            <th>PUT</th>
+            <th>DELETE</th>
+        </tr>
+        <tr>
+            <td>event</td>
+            <td class="tdc">&times;</td>
+            <td class="tdc">&times;</td>
+            <td class="tdc"></td>
+            <td class="tdc"></td>
+        </tr>
+        <tr>
+            <td>experiment</td>
+            <td class="tdc">&times;</td>
+            <td class="tdc">&times;</td>
+            <td class="tdc">&times;</td>
+            <td class="tdc">&times;</td>
+        </tr>
+        <tr>
+            <td>facet</td>
+            <td class="tdc">&times;</td>
+            <td class="tdc">&times;</td>
+            <td class="tdc">&times;</td>
+            <td class="tdc">&times;</td>
+        </tr>
+        <tr>
+            <td>facet-value</td>
+            <td class="tdc">&times;</td>
+            <td class="tdc">&times;</td>
+            <td class="tdc">&times;</td>
+            <td class="tdc">&times;</td>
+        </tr>
+        <tr>
+            <td>facet-position</td>
+            <td class="tdc">&times;</td>
+            <td class="tdc"></td>
+            <td class="tdc"></td>
+            <td class="tdc"></td>
+        </tr>
+        <tr>
+            <td>visitor</td>
+            <td class="tdc">&times;</td>
+            <td class="tdc">&times;</td>
+            <td class="tdc"></td>
+            <td class="tdc"></td>
+        </tr>
+    </table>
+	
+	<p>Access the resources the following way:</p>
+	
+	<pre>
+		
+		&laquo;HTTP Method&raquo; {$this->baseUrl()}/api/&laquo;resource&raquo;
+	
+	</pre>
 
 	<h3>Authentication</h3>
 	
-	<p>Every request to APi must contain parameters <em>apiKey</em> and <em>signature</em>. ApiKey is the key you can generate in experiments settings page. 
+	<p>Every request to API must contain parameters <em>apiKey</em> and <em>signature</em>. ApiKey is the key you can generate in experiments settings page. 
 	Signature is created as </p>
 	
 	<pre>hash_hmac('sha256', request, shared-secret);</pre>
@@ -31,6 +86,8 @@
 	
 	<p>All resources can be accessed in <em>application/xml</em> and <em>application/json</em>. Default is <em>application/xml</em>, if you want to retrieve JSON, 
 	please specify corresponding <em>Accept</em> HTTP header.</p>
+	
+	<p>Only <em>application/xml</em> is allowed as <code>Content-type</code> for data in <code>POST</code> and <code>PUT</code> methods.</p>
 		
 	<h3>Examples</h3>
 	
