@@ -16,6 +16,7 @@
                         <xs:element name="name" type="non-emptyString"/>
                         <xs:element name="url" type="non-emptyString"/>
                         <xs:element name="description" type="non-emptyString"/>
+                        <xs:element name="running" type="xs:boolean" />
                     </xs:all>
                 </xs:complexType>
             </xs:element>

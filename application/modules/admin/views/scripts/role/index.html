@@ -1,0 +1,63 @@
+<h2>Experiment <em>{$experiment->getName()}</em></h2>
+
+<a href="{$this->baseUrl()}/admin/experiment/delete?id={$experiment->getId()}" class="button" onclick="return confirm('Are you sure you want to delete this experiment?')">Delete</a>
+
+
+<ul id="submenu" class="clearfix">
+	<li><a href="{$this->baseUrl()}/admin/experiment?id={$experiment->getId()}">Overview</a></li>
+	<li><a href="{$this->baseUrl()}/admin/visitor?experimentId={$experiment->getId()}">Visitors</a></li>
+	<li><a href="{$this->baseUrl()}/admin/role?experimentId={$experiment->getId()}" class="active">User Roles</a></li>
+	<li><a href="{$this->baseUrl()}/admin/client?experimentId={$experiment->getId()}">API Keys</a></li>
+</ul>
+
+<div id="content">
+
+<h3>Roles</h3>
+
+<table class="data">
+	<tr>
+		<th>User</th>
+		<th>Role</th>
+		<th></th>
+	</tr>
+	{foreach $experiment->getUserBindings() as $binding}
+		<tr>
+			<td>{$binding->getUser()->getName()}</td>
+			<td>{$binding->getRole()}</td>
+			<td><a href="{$this->baseUrl()}/admin/role/remove?userId={$binding->getUser()->getId()}&experimentId={$experiment->getId()}">remove</a></td>
+		</tr>
+	{/foreach}
+</table>
+
+{assign var=usrCount value=0}
+{capture name=usr}
+	{foreach $users as $user}
+		{if !array_key_exists($user->getId(), $userIds)}
+			<option value="{$user->getId()}">{$user->getName()}</option>
+			{assign var=usrCount value=$usrCount+1}
+		{/if}
+	{/foreach}
+{/capture}
+
+{if $usrCount > 0}
+	<h3>Add new User</h3>
+	
+	<form action="{$this->baseUrl()}/admin/role/add" method="post">
+	
+		<label for="user">User:</label>
+		<select name="userId" id="user">
+			{$smarty.capture.usr}
+		</select>
+		<br />
+		
+		<input type="radio" name="role" value="owner" id="owner"/><label for="owner">Owner</label><br />
+		<input type="radio" name="role" value="member" checked="checked" id="member"/><label for="member">Member</label><br />
+		
+		<input type="hidden" name="experimentId" value="{$experiment->getId()}" />
+		
+		<input type="submit" value="Add User" />
+		
+	</form>
+{/if}
+
+</div><!-- content -->

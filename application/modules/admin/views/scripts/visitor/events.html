@@ -1,0 +1,57 @@
+<h2>Experiment <em>{$experiment->getName()}</em></h2>
+
+
+<ul id="submenu" class="clearfix">
+	<li><a href="{$this->baseUrl()}/admin/experiment?id={$experiment->getId()}">Overview</a></li>
+	<li><a href="{$this->baseUrl()}/admin/visitor?experimentId={$experiment->getId()}">Visitors</a></li>
+	<li><a href="{$this->baseUrl()}/admin/role?experimentId={$experiment->getId()}">User Roles</a></li>
+	<li><a href="{$this->baseUrl()}/admin/client?experimentId={$experiment->getId()}">API Keys</a></li>
+</ul>
+
+<div id="content">
+
+<h3>Visitor</h3>
+
+<table class="data">
+	<tr>
+		<th>ID</th>
+		<td>{$visitor->getId()}</td>
+	</tr>
+	<tr>
+		<th>User Agent</th>
+		<td>{$visitor->getUserAgentDetails()->browser} {$visitor->getUserAgentDetails()->version}</td>
+	</tr>
+	<tr>
+		<th>Platform</th>
+		<td>{$visitor->getUserAgentDetails()->platform}</td>
+	</tr>
+	<tr>
+		<th>IPv4</th>
+		<td>{$visitor->getIpv4()}</td>
+	</tr>
+</table>
+
+<h3>Events</h3>
+
+<table class="data">
+	<tr>
+		<th>time</th>
+		<th>type</th>
+		<th>details</th>
+		<th>results</th>
+		<th></th>
+	</tr>
+	{foreach $visitor->getEvents() as $event}
+	<tr>
+		<td>{$event->getDateTime()->format('Y-m-d H:i:s')}</td>
+		<td>{$event->getEventType()->getName()}</td>
+		<td>{if $event->getEventType()->getId() == Model_EventType::APPLY_FACET_VALUE || $event->getEventType()->getId() == Model_EventType::CANCEL_FACET_VALUE}
+				{$event->getFacet()->getName()}: {$event->getFacetValue()->getName()}
+			{/if}
+		</td>
+		<td>{$event->getResultSetSize()}</td>
+		<td><a href="{$this->baseUrl()}/admin/event?id={$event->getId()}">detail</a></td>
+	</tr>
+	{/foreach}
+</table>
+</div><!-- content -->

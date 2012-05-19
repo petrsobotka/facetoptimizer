@@ -3,7 +3,8 @@
 	"id":  {$experiment->getId()},
 	"name": "{$experiment->getName()}",
 	"url": "{$experiment->getUrl()}",
-	"description": "{$experiment->getDescription()}"
+	"description": "{$experiment->getDescription()}",
+	"running": {intval($experiment->isRunning())}
 {rdelim}
 {else}
 <?xml version="1.0" encoding="utf-8"?>
@@ -13,6 +14,7 @@
 		<name>{$experiment->getName()}</name>
 		<url>{$experiment->getUrl()}</url>
 		<description>{$experiment->getDescription()}</description>
+		<running>{intval($experiment->isRunning())}</running>
 	</experiment>
 </facetOptimizer>
 {/if}

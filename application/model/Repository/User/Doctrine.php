@@ -23,6 +23,15 @@ class Model_Repository_User_Doctrine
 		return $this->retrieveByEmail($username);
 	}
 	
+	/**
+	 * (non-PHPdoc)
+	 * @see Model_Repository_User_Interface::retrieveAll()
+	 */
+	public function retrieveAll()
+	{
+		return $this->findAll();
+	}
+	
 	public function retrieveByEmail($email)
 	{
 		$query = $this->_em->createQuery("SELECT u FROM Model_User u WHERE u.email = :email");
@@ -35,4 +44,6 @@ class Model_Repository_User_Doctrine
 		}
 		return $user;
 	}
+	
+	
 }

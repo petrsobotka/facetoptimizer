@@ -39,6 +39,13 @@ class Model_Experiment
      * @Column(name="url", type="string", length=255, nullable=false)
      */
     private $url;
+
+    /**
+     * @var boolean $running
+     *
+     * @Column(name="running", type="boolean", nullable=false)
+     */
+    private $running;
     
     /**
      * @oneToMany(targetEntity="Model_Facet", mappedBy="experiment")
@@ -68,6 +75,8 @@ class Model_Experiment
     	$this->events = new ArrayCollection();
     	$this->userBindings = new ArrayCollection();
     	$this->clients = new ArrayCollection();
+    	
+    	$this->running = true;
     }
     
     public function getId()
@@ -105,6 +114,16 @@ class Model_Experiment
     	return $this->url;
     }
     
+    public function isRunning()
+    {
+    	return $this->running;
+    }
+    
+    public function setRunning($flag)
+    {
+    	$this->running = $flag;
+    }
+    
     public function getFacets()
     {
     	return $this->facets;
@@ -113,6 +132,11 @@ class Model_Experiment
     public function getEvents()
     {
     	return $this->events;
+    }
+    
+    public function getUserBindings()
+    {
+    	return $this->userBindings;
     }
     
     public function getClients()

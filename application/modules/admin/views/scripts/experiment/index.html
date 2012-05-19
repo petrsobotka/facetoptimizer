@@ -3,6 +3,13 @@
 <a href="{$this->baseUrl()}/admin/experiment/delete?id={$experiment->getId()}" class="button" onclick="return confirm('Are you sure you want to delete this experiment?')">Delete</a>
 
 
+<ul id="submenu" class="clearfix">
+	<li><a href="{$this->baseUrl()}/admin/experiment?id={$experiment->getId()}" class="active">Overview</a></li>
+	<li><a href="{$this->baseUrl()}/admin/visitor?experimentId={$experiment->getId()}">Visitors</a></li>
+	<li><a href="{$this->baseUrl()}/admin/role?experimentId={$experiment->getId()}">User Roles</a></li>
+	<li><a href="{$this->baseUrl()}/admin/client?experimentId={$experiment->getId()}">API Keys</a></li>
+</ul>
+
 <div id="content">
 
 <h3>Events</h3>
@@ -88,37 +95,58 @@ Total events of selected type: {$totalEventsCount}
 {/foreach}
 </div><!-- facets -->
 
-{*
-<hr />
-<h3>Events</h3>
+<h3>Stats Overview</h3>
 
 <table class="data">
+{*
+  <colgroup>
+    <col />
+    <col style="text-align: right; background-color: black;" />
+    <col style="background-color:yellow" />
+  </colgroup>
+  *}
+
 	<tr>
-		<th>time</th>
-		<th>type</th>
-		<th>details</th>
-		<th>results</th>
-		<th>visitor</th>
-		<th></th>
-	</tr>
-	{foreach $experiment->getEvents() as $event}
-	<tr>
-		<td>{$event->getDateTime()->format('Y-m-d H:i:s')}</td>
-		<td>{$event->getEventType()->getName()}</td>
-		<td>{if $event->getEventType()->getId() == Model_EventType::APPLY_FACET_VALUE || $event->getEventType()->getId() == Model_EventType::CANCEL_FACET_VALUE}
-				{$event->getFacet()->getName()}: {$event->getFacetValue()->getName()}
-			{/if}
-		</td>
-		<td>{$event->getResultSetSize()}</td>
-		<td>{$event->getVisitor()->getId()}</td>
-		<td><a href="{$this->baseUrl()}/admin/event?id={$event->getId()}">detail</a></td>
-	</tr>
+		<th>Event description</th>
+		<th>Count</th>
+		<th>Percentage</th>
+
+	{foreach $eventCountByType as $row}
+		{assign var=eventType value=$row[0]}
+		{assign var=count value=$row['eventCount']}
+		<tr>
+			<td>
+				{if $eventType->getId() == Model_EventType::APPLY_FACET_VALUE}
+					Click on facet value
+					{assign var=tot value=$count}
+				{elseif $eventType->getId() == Model_EventType::CANCEL_FACET_VALUE}
+					Facet value cancel
+				{elseif $eventType->getId() == Model_EventType::CANCEL_ALL_FACETS}
+					All facet values cancel
+				{elseif $eventType->getId() == Model_EventType::HELP}
+					Click on help button
+				{elseif $eventType->getId() == Model_EventType::SORT}
+					Sorting
+				{elseif $eventType->getId() == Model_EventType::PAGING}
+					Paging
+				{elseif $eventType->getId() == Model_EventType::SELECT_PRODUCT}
+					Exit to specific item
+				{elseif $eventType->getId() == Model_EventType::CONVERSION}
+					Conversion
+				{/if}
+			</td>
+			<td class="tdr">{$count}</td>
+			<td class="tdr">{number_format(round($count/$tot*100, 2), 2)}</td>
+		</tr>
 	{/foreach}
 </table>
 
-*}
+<h3>State</h3>
 
-<h3>API Keys</h3>
-<a href="{$this->baseUrl()}/admin/client?experimentId={$experiment->getId()}">Configure API Keys for this Experiment</a>
+{if $experiment->isRunning()}
+	Experiment is running. (Random facet order is served to visitors.) <a href="{$this->baseUrl()}/admin/experiment/toggle?id={$experiment->getId()}">Pause Experiment</a>
+{else}
+	Experiment is paused. (Discovered optimal facet order is served to visitors.) <a href="{$this->baseUrl()}/admin/experiment/toggle?id={$experiment->getId()}">Resume Experiment</a>
+{/if}
 
 </div><!-- content -->

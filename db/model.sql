@@ -3,6 +3,7 @@ CREATE TABLE experiment (
      , name VARCHAR(255) NOT NULL
      , description TEXT
      , url VARCHAR(255) NOT NULL
+     , running BOOLEAN NOT NULL DEFAULT 1
      , PRIMARY KEY (id)
 );
 

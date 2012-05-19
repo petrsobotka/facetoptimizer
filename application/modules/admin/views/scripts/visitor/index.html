@@ -1,0 +1,47 @@
+<h2>Experiment <em>{$experiment->getName()}</em></h2>
+
+
+<ul id="submenu" class="clearfix">
+	<li><a href="{$this->baseUrl()}/admin/experiment?id={$experiment->getId()}">Overview</a></li>
+	<li><a href="{$this->baseUrl()}/admin/visitor?experimentId={$experiment->getId()}" class="active">Visitors</a></li>
+	<li><a href="{$this->baseUrl()}/admin/role?experimentId={$experiment->getId()}">User Roles</a></li>
+	<li><a href="{$this->baseUrl()}/admin/client?experimentId={$experiment->getId()}">API Keys</a></li>
+</ul>
+
+<div id="content">
+
+<h3>Visitors</h3>
+
+<table class="data">
+	<tr>
+		<th>#</th>
+		<th>ID</th>
+		<th>IPv4</th>
+		<th>Events</th>
+		<th>First Event</th>
+	</tr>
+	{foreach $visitors as $row}
+	
+		{assign var=visitor value=$row[0]}
+		{assign var=count value=$row['eventCount']}
+		{assign var=firstEvent value=$row['firstEvent']}
+	<tr>
+		<td class="tdr">{$row@iteration}</td>
+		<td><a href="{$this->baseUrl()}/admin/visitor/events?visitorId={$visitor->getId()}&experimentId={$experiment->getId()}">{$visitor->getId()}</a></td>
+		<td>{$visitor->getIpv4()}</td>
+		<td class="tdr">{$count}</td>
+		<td>{$firstEvent->format('Y-m-d H:i:s')}</td>
+	</tr>
+	{/foreach}
+</table>
+
+
+{*
+<select name="">
+	{foreach $visitors as $visitor}
+		<option value="">{$visitor->getId()}</option>
+	{/foreach}
+
+</select>
+*}
+</div><!-- content -->

@@ -1,5 +1,7 @@
 <?php
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 /**
  * Visitor
  *
@@ -36,6 +38,16 @@ class Model_Visitor
      * @Column(name="created", type="integer", nullable=false)
      */
     private $created;
+    
+    /**
+     * @oneToMany(targetEntity="Model_Event", mappedBy="visitor")
+     */
+    private $events;
+    
+    public function __construct()
+    {
+    	$this->events = new ArrayCollection();
+    }
 
     public function setId($id)
     {
@@ -75,5 +87,15 @@ class Model_Visitor
     public function getCreated()
     {
     	return $this->created;
+    }
+    
+    public function getEvents()
+    {
+    	return $this->events;
+    }
+    
+    public function getUserAgentDetails()
+    {
+    	return get_browser($this->userAgent);
     }
 }

@@ -48,6 +48,9 @@
 <column auto-increment="false" column-size="255" decimal-digits="0" default-value="" id="4b18d04a:136c52675d6:-7fe9" mandatory="true" name="url">
 <data-type name="VARCHAR" selected-variant-pattern="VARCHAR(%n)"/>
 </column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="1" id="de4e27c:13765825b26:-7fd0" mandatory="true" name="running">
+<data-type name="BOOLEAN" selected-variant-pattern="BOOLEAN"/>
+</column>
 </column-list>
 <primary-key id="4b18d04a:136c52675d6:-7ff0" name="PK_EXPERIMENT">
 <primary-key-column name="id"/>
@@ -340,7 +343,7 @@
 </database-model>
 <diagram>
 <table-figure height="111" refid="5865a437:136732f13c4:-7ffe" width="148" x="391" y="38"/>
-<table-figure height="86" refid="4b18d04a:136c52675d6:-7ff1" width="159" x="1100" y="42"/>
+<table-figure height="94" refid="4b18d04a:136c52675d6:-7ff1" width="159" x="1100" y="42"/>
 <table-figure refid="4b18d04a:136c52675d6:-7fe6" x="1467" y="69"/>
 <table-figure refid="4b18d04a:136c52675d6:-7faf" x="1906" y="54"/>
 <table-figure height="94" refid="4b18d04a:136c52675d6:-7f13" width="226" x="1336" y="323"/>

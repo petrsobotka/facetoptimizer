@@ -48,6 +48,11 @@ class Model_EventType
      * @Column(name="token", type="string", length=32, nullable=false)
      */
     private $token;
+    
+    /**
+     * @oneToMany(targetEntity="Model_Event", mappedBy="eventType")
+     */
+    private $events; // nema ani getter, je jen kvuli sestavovani dotazu
 
     public function getId()
     {

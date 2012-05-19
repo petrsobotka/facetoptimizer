@@ -13,4 +13,9 @@ interface Model_Repository_User_Interface
 	 * @param String $username
 	 */
 	public function retrieveByUsername($username);
+	
+	/**
+	 * Retrieves all users.
+	 */
+	public function retrieveAll();
 }

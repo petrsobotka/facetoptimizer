@@ -45,6 +45,16 @@ class Model_UserBinding
 		$this->role = $role;
 	}
 	
+	public function getUser()
+	{
+		return $this->user;
+	}
+	
+	public function setRole($role)
+	{
+		$this->role = $role;
+	}
+	
 	public function getRole()
 	{
 		return $this->role;

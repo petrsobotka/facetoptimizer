@@ -101,11 +101,13 @@ class Api_ExperimentController extends Czechline_RestAbstractController
     	$name = $doc->getElementsByTagName('name')->item(0)->nodeValue;
     	$url = $doc->getElementsByTagName('url')->item(0)->nodeValue;
     	$desc = $doc->getElementsByTagName('description')->item(0)->nodeValue;
+    	$running = (bool) $doc->getElementsByTagName('running')->item(0)->nodeValue;
     	
     	$exp = new Model_Experiment();
     	$exp->setName($name);
     	$exp->setUrl($url);
     	$exp->setDescription($desc);
+    	$exp->setRunning($running);
     	
     	$this->_em->persist($exp);
     	$this->_em->flush();
@@ -175,11 +177,12 @@ class Api_ExperimentController extends Czechline_RestAbstractController
     	$name = $doc->getElementsByTagName('name')->item(0)->nodeValue;
     	$url = $doc->getElementsByTagName('url')->item(0)->nodeValue;
     	$desc = $doc->getElementsByTagName('description')->item(0)->nodeValue;
-    	 
+    	$running = (bool) $doc->getElementsByTagName('running')->item(0)->nodeValue;
     	
     	$exp->setName($name);
     	$exp->setUrl($url);
     	$exp->setDescription($desc);
+    	$exp->setRunning($running);
     	 
     	$this->_em->flush();
     	 

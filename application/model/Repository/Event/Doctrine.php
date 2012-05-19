@@ -13,4 +13,11 @@ class Model_Repository_Event_Doctrine
 	{
 		return $this->find($id);
 	}
+	
+	public function retrieveAllEventCountByeperiment(Model_Experiment $experiment)
+	{
+		$query = $this->_em->createQuery("SELECT t, COUNT(e.id) eventCount FROM Model_EventType t JOIN t.events e WHERE e.experiment = :experiment GROUP BY t.id");
+		$query->setParameter('experiment', $experiment);
+		return $query->getResult();
+	}
 }

@@ -60,57 +60,96 @@ class Api_FacetPositionController extends Czechline_RestAbstractController
     		return;
     	}
     	
-    	$positions = $this->_em->getRepository('Model_FacetPosition')->retrieveByExperimentIdAndVisitorId($experimentId, $visitorId);
+    	$experiment =  $this->_em->getRepository('Model_Experiment')->retrieveById($experimentId);
     	
-    	if(count($positions) == 0)
+    	if($experiment->isRunning())
     	{
-    		// pro tohoto visitora a experiment jeste nebyly vygenerovany
+    		/*
+    		 * Experiment is running, we serve random but consistent facet order to incoming visitors. 
+    		 */
     		
-    		$experiment = $this->_em->getRepository('Model_Experiment')->retrieveById($experimentId);
-    		$visitor = $this->_em->getRepository('Model_Visitor')->retrieveById($visitorId);
     		
-    		// pokud je zadany identifikator visitora nebo experimentu neplatny
-    		if(is_null($visitor) || is_null($experiment))
-    		{
-    			$this->getResponse()->setHttpResponseCode(404);
-    			$this->getResponse()->setHeader('Content-type', 'application/xml');
-    			echo '<?xml version="1.0" encoding="utf-8"?><facetOptimizer><error>Invalid Experiment ID or Visitor ID provided.</error></facetOptimizer>';
-    			$this->getHelper('viewRenderer')->setNoRender(true);
-    			return;
-    		}
-
-    		$randomizedArray;
+	    	$positions = $this->_em->getRepository('Model_FacetPosition')->retrieveByExperimentIdAndVisitorId($experimentId, $visitorId);
+	    	
+	    	if(count($positions) == 0)
+	    	{
+	    		// pro tohoto visitora a experiment jeste nebyly vygenerovany
+	    		
+	    		$experiment = $this->_em->getRepository('Model_Experiment')->retrieveById($experimentId);
+	    		$visitor = $this->_em->getRepository('Model_Visitor')->retrieveById($visitorId);
+	    		
+	    		// pokud je zadany identifikator visitora nebo experimentu neplatny
+	    		if(is_null($visitor) || is_null($experiment))
+	    		{
+	    			$this->getResponse()->setHttpResponseCode(404);
+	    			$this->getResponse()->setHeader('Content-type', 'application/xml');
+	    			echo '<?xml version="1.0" encoding="utf-8"?><facetOptimizer><error>Invalid Experiment ID or Visitor ID provided.</error></facetOptimizer>';
+	    			$this->getHelper('viewRenderer')->setNoRender(true);
+	    			return;
+	    		}
+	
+	    		$randomizedArray;
+	    		$i = 0;
+	    		foreach($experiment->getFacets() as $facet)
+	    		{
+	    			if($facet->isStatic()) // pokud je faseta staticka, nebudeme ji vubec randomizovat
+	    				continue;
+	    			$randomizedArray[$i]['facet'] = $facet;
+	    			$randomizedArray[$i]['rank'] = mt_rand(0, 1000);
+	    			//echo $facet->getName() . " | " . $randomizedArray[$i]['rank'] . "<br />\n";
+	    			$i++;
+	    		}
+	    		
+	    		//echo "<br /><br />\n";
+	    		
+	    	     // Sort the multidimensional array by random number
+	     		usort($randomizedArray, array("Api_FacetPositionController", "custom_sort"));
+	    		
+	    		for($i = 0; $i < count($randomizedArray); $i++)
+	    		{
+	    			//echo $randomizedArray[$i]['facet']->getName() . " | " . $randomizedArray[$i]['rank'] . "<br />\n";
+	    			$pos = new Model_FacetPosition();
+					$pos->setPosition($i);
+					$pos->setExperiment($experiment);
+					$pos->setVisitor($visitor);
+					$pos->setFacet($randomizedArray[$i]['facet']);
+					
+					$this->_em->persist($pos);
+	    		}
+	    		$this->_em->flush();
+	    		
+	    		$positions = $this->_em->getRepository('Model_FacetPosition')->retrieveByExperimentIdAndVisitorId($experimentId, $visitorId);
+	    		
+	    	}
+    	
+    	} else {
+    		/*
+    		 * experiment is paused, we serve discovered optimal facet order to visitors
+    		 */
+    		
+    		$eventType = $this->_em->getRepository('Model_EventType')->retrieveById(Model_EventType::APPLY_FACET_VALUE);
+    		
+    		$facets = $this->_em->getRepository('Model_Facet')->retrieveAllByExperimentAndEventTypeOrderedByEventCount($experiment, $eventType);
+    		
+    		$positions = array();
     		$i = 0;
-    		foreach($experiment->getFacets() as $facet)
+    		foreach($facets as $row)
     		{
-    			if($facet->isStatic()) // pokud je faseta staticka, nebudeme ji vubec randomizovat
-    				continue;
-    			$randomizedArray[$i]['facet'] = $facet;
-    			$randomizedArray[$i]['rank'] = mt_rand(0, 1000);
-    			//echo $facet->getName() . " | " . $randomizedArray[$i]['rank'] . "<br />\n";
-    			$i++;
+    			$facet = $row[0];
+    			
+    			if(!$facet->isStatic())
+    			{
+	    			$fp = new Model_FacetPosition();
+	    			$fp->setExperiment($experiment);
+	    			$fp->setFacet($facet);
+	    			$fp->setVisitor(new Model_Visitor()); // mock
+	    			$fp->setPosition($i);
+	    			
+	    			
+	    			$positions[] = $fp;
+	    			$i++;
+    			}
     		}
-    		
-    		//echo "<br /><br />\n";
-    		
-    	     // Sort the multidimensional array by random number
-     		usort($randomizedArray, array("Api_FacetPositionController", "custom_sort"));
-    		
-    		for($i = 0; $i < count($randomizedArray); $i++)
-    		{
-    			//echo $randomizedArray[$i]['facet']->getName() . " | " . $randomizedArray[$i]['rank'] . "<br />\n";
-    			$pos = new Model_FacetPosition();
-				$pos->setPosition($i);
-				$pos->setExperiment($experiment);
-				$pos->setVisitor($visitor);
-				$pos->setFacet($randomizedArray[$i]['facet']);
-				
-				$this->_em->persist($pos);
-    		}
-    		$this->_em->flush();
-    		
-    		$positions = $this->_em->getRepository('Model_FacetPosition')->retrieveByExperimentIdAndVisitorId($experimentId, $visitorId);
-    		
     	}
     	
     	$this->getResponse()->setHeader('Content-type', $this->getRequestedMediaType());

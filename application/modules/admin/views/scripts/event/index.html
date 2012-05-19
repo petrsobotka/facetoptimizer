@@ -1,26 +1,52 @@
 <h2>Event detail</h2>
 
-<p>
-Experiment: {$event->getExperiment()->getName()} <br />
-Time: {$event->getDateTime()->format('Y-m-d H:i:sP')} <br />
-Type: {$event->getEventType()->getName()} <br />
-Visitor: {$event->getVisitor()->getId()} <br />
-Results: {$event->getResultSetSize()} <br />
-</p>
+<div id="content">
 
-{if $event->getEventType()->getId() == Model_EventType::APPLY_FACET_VALUE || $event->getEventType()->getId() == Model_EventType::CANCEL_FACET_VALUE}
-<h3>Choice</h3>
-	<ul>
-		<li><strong>{$event->getFacet()->getName()}: {$event->getFacetValue()->getName()}</strong></li>
-	</ul>
-{/if}
+<table class="data">
+	<tr>
+		<th>Experiment</th>
+		<td>{$event->getExperiment()->getName()}</td>
+	</tr>
+	<tr>
+		<th>Time</th>
+		<td>{$event->getDateTime()->format('Y-m-d H:i:s')} </td>
+	</tr>
+	<tr>
+		<th>Type</th>
+		<td>{$event->getEventType()->getName()}</td>
+	</tr>
+	<tr>
+		<th>Visitor</th>
+		<td><a href="{$this->baseUrl()}/admin/visitor/events?visitorId={$event->getVisitor()->getId()}&experimentId={$event->getExperiment()->getId()}">{$event->getVisitor()->getId()}</a></td>
+	</tr>
+	<tr>
+		<th>Results</th>
+		<td>{$event->getResultSetSize()}</td>
+	</tr>
+</table>
 
-{if $event->getFormerChoices()->count() > 0}
-	<h3>Active facet choices</h3>
+	
+	{if $event->getEventType()->getId() == Model_EventType::APPLY_FACET_VALUE || $event->getEventType()->getId() == Model_EventType::CANCEL_FACET_VALUE}
+	<h3>Choice</h3>
+		<table class="data">
+		<tr>
+			<th>{$event->getFacet()->getName()}</th>
+			<td>{$event->getFacetValue()->getName()}</td>
+		</tr>
+		</table>
+	{/if}
+	
+	{if $event->getFormerChoices()->count() > 0}
+		<h3>Other active facet choices</h3>
+	
+		<table class="data">
+			{foreach $event->getFormerChoices() as $formerChoice}
+			<tr>
+				<th>{$formerChoice->getFacet()->getName()}</th> 
+				<td>{$formerChoice->getFacetValue()->getName()}</td>
+			</tr>
+			{/foreach}
+		</table>
+	{/if}
 
-	<ul>
-		{foreach $event->getFormerChoices() as $formerChoice}
-			<li>{$formerChoice->getFacet()->getName()}: {$formerChoice->getFacetValue()->getName()}</li>
-		{/foreach}
-	</ul>
-{/if}
+</div><!-- content -->

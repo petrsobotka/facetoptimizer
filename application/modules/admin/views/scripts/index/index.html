@@ -8,14 +8,18 @@
 {foreach $experiments as $row}
 
 	{assign var=experiment value=$row[0]}
-	<a href="{$this->baseUrl()}/admin/experiment?id={$experiment->getId()}" class="experiment-box clearfix">
+	<a href="{$this->baseUrl()}/admin/experiment?id={$experiment->getId()}" class="experiment-box {if $experiment->isRunning()}running {/if}clearfix">
 		
 		<div class="experiment-overview">
 			<span>{$experiment->getName()}</span>
 			
-			<div class="events-progressbar" style="background-position: -{200-round($row['eventCount']/$maxEvents*100*2)}px 0;">	
+			<div class="events-progressbar" style="background-position: -{200-round($row['eventCount']/$maxEvents*100*2)}px 0;">
 			</div>
-			<span>{$row['eventCount']} events</span>
+			{if $experiment->isRunning()}
+				<span>{$row['eventCount']} events</span>
+			{else}
+				<span>paused</span>
+			{/if}	
 		</div><!-- experiment-overview -->
 		
 		<div class="facet-count">

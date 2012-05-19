@@ -59,9 +59,13 @@ class Admin_ExperimentController extends Zend_Controller_Action
     		$totalEventsCount += $row['eventCount'];
     	}
     	
+    	$eventCountByType = $this->_em->getRepository('Model_Event')->retrieveAllEventCountByeperiment($experiment);
+    	//var_dump($eventCountByType);
+    	
     	$this->view->facets = $facets;
     	$this->view->valueCounts = $idIndexedValueCounts;
     	$this->view->totalEventsCount = $totalEventsCount;
+    	$this->view->eventCountByType = $eventCountByType;
     	$this->view->experiment = $experiment;
     	$this->view->facetValueTrees = $facetValueTrees;
     }
@@ -128,5 +132,34 @@ class Admin_ExperimentController extends Zend_Controller_Action
     	$this->_em->remove($experiment);
     	$this->_em->flush();
     	$this->_redirect('/admin');
+    }
+    
+    public function toggleAction()
+    {
+    	$id = intval($this->getRequest()->getParam('id'));
+    	 
+    	$experiment = $this->_em->getRepository('Model_Experiment')->retrieveById($id);
+    	
+    	// zkontrolujeme privilegia soucasne prihlaseneho uzivatele
+    	$binding = $this->_em->getRepository('Model_UserBinding')->retrieveByExperimentAndUser($experiment, Czechline_LoggedOnUSer::getUser());
+    	if(is_null($binding))
+    	{
+    		$this->getResponse()->setHttpResponseCode(400);
+    		echo "Bad Request";
+    		$this->getHelper('viewRenderer')->setNoRender();
+    		$this->getHelper('layout')->disableLayout();
+    		return;
+    	}
+    	
+    	if(strcmp($binding->getRole(), 'owner') != 0)
+    	{
+    		return $this->_forward('unauthorized', 'auth', 'admin');
+    	}
+    	
+    	$experiment->setRunning(!$experiment->isRunning());
+    	
+    	$this->_em->flush();
+    	
+    	$this->_redirect('/admin/experiment?id=' . $id);
     }
 }

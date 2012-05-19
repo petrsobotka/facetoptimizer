@@ -1,6 +1,14 @@
-<h2>Keys for experiment <em>{$experiment->getName()}</em></h2>
+<h2>Experiment <em>{$experiment->getName()}</em></h2>
 
-<a href="{$this->baseUrl()}/admin/client/new?experimentId={$experiment->getId()}" class="button">New Api Key</a>
+<a href="{$this->baseUrl()}/admin/client/new?experimentId={$experiment->getId()}" class="button">New API Key</a>
+
+<ul id="submenu" class="clearfix">
+	<li><a href="{$this->baseUrl()}/admin/experiment?id={$experiment->getId()}">Overview</a></li>
+	<li><a href="{$this->baseUrl()}/admin/visitor?experimentId={$experiment->getId()}">Visitors</a></li>
+	<li><a href="{$this->baseUrl()}/admin/role?experimentId={$experiment->getId()}">User Roles</a></li>
+	<li><a href="{$this->baseUrl()}/admin/client?experimentId={$experiment->getId()}" class="active">API Keys</a></li>
+</ul>
+
 
 <div id="content">
 
